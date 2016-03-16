@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Install: Open-SSH Client
+# Description: Installs and Configures Open-SSH Client
+# Syntax: ./Install_SSH_Client.sh <remote_user> <hostname> <passwd> <passphrase> <local_user>
+#		  ./ssh_key_upload.exp <hostname> <remote_user> <passwd> <local_user>
+################
+# Intro
+echo "Automated install Script for Open-SSH Client"
+echo "   *Generate SSH Key Pair..."
+echo -e  'y\n'|ssh-keygen -t rsa -b 4096 -C "Hello Govna" -P "$4" -f /home/$5/.ssh/id_rsa -q
+echo "	 *Complete!"
+echo "-------------------------"
+
+# Install SSH Key on remote server
+echo "   *Uploading SSH Key to remote server..."
+apt-get install expect
+./SSH_Key_Upload.exp $2 $1 $3 $5 
+echo "	 *Complete!"
+echo "-------------------------"
+
+# Test SSH Connection
+echo "Testing ssh conection to server..."
+(ssh -q -o "BatchMode=yes" -o "ConnectTimeout=3" $1@$2 "echo 2>&1" && echo Connection: Successful || echo Connection: Failed) | tail -n1
+echo "-------------------------"
+echo "**Installation Complete**"

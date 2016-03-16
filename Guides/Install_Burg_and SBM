@@ -1,0 +1,22 @@
+****Burg - Graphic Grub 
+sudo add-apt-repository ppa:n-muench/burg
+sudo apt-get update
+sudo apt-get install burg burg-themes
+
+-configure burg
+sudo burg-emu -D
+
+--Restore originial Grub
+sudo add-apt-repository -r ppa:n-muench/burg
+sudo apt-get remove --purge burg burg-theme
+sudo update-grub
+sudo grub-install /dev/sda
+
+****Super Boot Manager - GUI to install burg, edit themes
+sudo add-apt-repository ppa:ingalex/super-boot-manager
+sudo sh -c "sed -i 's/trusty/raring/g' /etc/apt/sources.list.d/ingalex-super-boot-manager-trusty.list"
+sudo apt-get update
+sudo apt-get install super-boot-manager
+sudo apt-get install -f
+
+run with: super-boot-manager

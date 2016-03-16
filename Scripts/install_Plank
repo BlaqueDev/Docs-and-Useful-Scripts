@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Install Script - Themes: Numix
+#
+##########
+# Intro
+echo "Install Script for Plank..."
+echo
+
+########## START Plank
+echo "Starting Plank install.."
+
+# Adds Repository 
+echo "   *Adding Repository..."
+sudo add-apt-repository ppa:ricotz/docky
+
+# Updates Package List
+echo "   *Updating Package list..."
+sudo apt-get update 
+
+# Install
+echo "   *Installing theme..."
+sudo apt-get install plank
+
+# Exit
+echo "Plank is now installed!"
+########## END Plank

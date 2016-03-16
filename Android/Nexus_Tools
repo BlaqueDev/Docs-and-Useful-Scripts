@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Title: Nexus Tools
+# Author: corbin052198
+# Link: http://forum.xda-developers.com/showthread.php?t=2638673
+# Github Source: https://github.com/corbindavenport/nexus-tools
+# Description: 	Tools is an installer for the Android debug/development 
+#				command-line tools ADB (Android Device Bridge) and 
+#				Fastboot for Mac OS X and Linux.
+#
+##########
+# Main
+	case "$1" in
+		-i) 
+			curl -s https://raw.githubusercontent.com/corbindavenport/nexus-tools/master/install.sh | bash
+		;;
+		-u)
+			curl -s https://raw.githubusercontent.com/corbindavenport/nexus-tools/master/uninstall.sh | bash
+		;;
+		*) 	echo "Usage: nexus-tools [OPTION] "
+			echo "   options:"
+			echo "      -i  Installs Nexus-Tools"
+			echo "      -u  Uninstalls Nexus-Tools"
+			echo
+			echo "**Nexus Tools requires sudo privileges to install/uninstall"
+			echo "  the adb and fastboot tools to /usr/local/bin, so they can"
+			echo "  be run without typing the full directory."
+		;;
+	esac

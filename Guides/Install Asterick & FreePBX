@@ -1,0 +1,167 @@
+Initial System Setup
+
+Configure your root password:
+  sudo passwd root
+
+Switch to the Root User:
+  sudo -i
+
+Update Your System:
+  apt-get update && apt-get upgrade -y 
+
+Install Required Dependencies:
+  apt-get install -y build-essential linux-headers-`uname -r` openssh-server apache2 mysql-server mysql-client bison flex php5 php5-curl php5-cli php5-mysql php-pear php-db php5-gd curl sox libncurses5-dev libssl-dev libmysqlclient15-dev mpg123 libxml2-dev libnewt-dev sqlite3 libsqlite3-dev pkg-config automake libtool autoconf git subversion uuid uuid-dev
+
+Install PearDB:
+  pear install db
+
+
+  You may receive a warning:
+  WARNING: "pear/DB" is deprecated in favor of "pear/MDB2"
+
+  At this time it is safe to ignore that message
+
+
+Reboot server:
+  reboot
+
+Install Dependencies for Google Voice
+
+Install iksemel:
+  cd /usr/src
+  wget https://iksemel.googlecode.com/files/iksemel-1.4.tar.gz
+  tar xf iksemel-1.4.tar.gz
+  cd iksemel-1.4
+  ./configure
+  make
+  make install
+
+Install and Configure Asterisk
+
+Download Asterisk source files:
+  cd /usr/src
+  wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
+  wget http://downloads.asterisk.org/pub/telephony/libpri/libpri-1.4-current.tar.gz
+  wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-11-current.tar.gz
+
+Compile and install DAHDI:
+  cd /usr/src
+  tar xvfz dahdi-linux-complete-current.tar.gz
+  cd dahdi-linux-complete-2.6.1+2.6.1
+  make all
+  make install
+  make config
+
+Compile and install LIBPRI:
+  cd /usr/src
+  tar xvfz libpri-1.4-current.tar.gz
+  cd libpri-1.4.14
+  make
+  make install
+
+Compile and install Asterisk:
+  cd /usr/src
+  tar xvfz asterisk-11-current.tar.gz
+  cd asterisk-*
+  ./configure
+  contrib/scripts/get_mp3_source.sh
+  make menuselect
+  make
+  make install
+  make config
+
+Install Asterisk-Extra-Sounds:
+  cd /var/lib/asterisk/sounds
+  wget http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-gsm-current.tar.gz
+  tar xfz asterisk-extra-sounds-en-gsm-current.tar.gz
+  rm asterisk-extra-sounds-en-gsm-current.tar.gz
+
+Install and Configure FreePBX
+
+Download and extract FreePBX:
+  export VER_FREEPBX=2.11
+  cd /usr/src
+  svn co http://www.freepbx.org/v2/svn/freepbx/branches/${VER_FREEPBX} freepbx
+  cd freepbx
+
+Now create the Asterisk user and set ownership permissions:
+  adduser asterisk --disabled-password --no-create-home --gecos "Asterisk User"
+  chown asterisk. /var/run/asterisk
+  chown -R asterisk. /etc/asterisk
+  chown -R asterisk. /var/{lib,log,spool}/asterisk
+  chown -R asterisk. /usr/lib/asterisk
+  mkdir /var/www/html
+  chown -R asterisk. /var/www/
+
+A few small modifications to Apache:
+  sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php5/apache2/php.ini
+  cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf_orig
+  sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf
+  service apache2 restart
+
+Configure Asterisk database in MYSQL:
+  export ASTERISK_DB_PW=amp109 
+  mysqladmin -u root create asterisk -p
+  mysqladmin -u root create asteriskcdrdb -p
+  mysql -u root asterisk -p < SQL/newinstall.sql 
+  mysql -u root asteriskcdrdb -p < SQL/cdr_mysql_table.sql 
+
+Set permissions on MYSQL database:
+  mysql -u root -p -e "GRANT ALL PRIVILEGES ON asterisk.* TO asteriskuser@localhost IDENTIFIED BY '${ASTERISK_DB_PW}';"
+  mysql -u root -p -e "GRANT ALL PRIVILEGES ON asteriskcdrdb.* TO asteriskuser@localhost IDENTIFIED BY '${ASTERISK_DB_PW}';"
+  mysql -u root -p -e "flush privileges;"
+
+Restart Asterisk and install FreePBX:
+  ./start_asterisk start
+  ./install_amp --webroot /var/www/freepbx
+  amportal a ma installall
+  amportal a reload
+
+  ** If “. /install_amp” fails to run correctly, in terminal type:
+    ./install_amp --username=asteriskuser --password=$ASTERISK_DB_PW --webroot /var/www/freepbx
+
+Finally, one last mod and start FreePBX:
+  ln -s /var/lib/asterisk/moh /var/lib/asterisk/mohmp3
+  amportal start 
+
+Start FreePBX:
+Navigate: 
+
+http://yourlocalipaddress/html or if you prefer http://localhost/admin
+
+After you enable and update the modules in FreePBX You might see the following error.
+Symlink from modules failed 
+ 
+
+To correct this error do the following: 
+
+Delete the list of failed files:
+  cd /etc/asterisk
+  rm ccss.conf confbridge.conf features.conf sip.conf iax.conf logger.conf extensions.conf sip_notify.conf
+
+Then on the FreePBX webUI go to the ‘Module Admin’ and uninstall and reinstall the ‘Camp On’ module. This should resolve the Symlink issue.
+
+In addition to the above step I had to uninstall several broken modules, and then reinstall them.
+
+Install chan_motif:
+  cd /usr/src
+  wget http://iksemel.googlecode.com/files/iksemel-1.4.tar.gz
+  tar xfz iksemel-1.4.tar.gz
+  cd iksemel-1.4
+  ./configure && make && make all && make install
+  cd /usr/src/asterisk*
+  make clean
+  ./configure
+  make menuselect (be sure that in Channel Drivers, see if the chan_motif driver is shows a * symbol.
+  make && make install 
+
+Stop and restart asterisk:
+  amportal kill && amportal start
+
+Now, sign in to FreePBX
+Go to Admin | Module Admin
+Be sure to also select UNSUPPORTED as the options for repositories
+Lookout for the Google Voice/Chan Motif under Connectivity, install and go to that page
+Go to Connectivity | Google Voice [Motif]
+
+Follow the link for the youtube videos to configure your router and google voice.  I used dd-wrt, but the set up was the same.

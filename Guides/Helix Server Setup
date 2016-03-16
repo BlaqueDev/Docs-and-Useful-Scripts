@@ -1,0 +1,39 @@
+*****/ Helix Server Setup \*****
+Ideas:
+Raspbian Tor Router
+https://yawnbox.com/?p=2179
+**************** Download and Install OS:
+- Debian with Linux Mint GUI
+- Extras:
+	a) Linux Mint GUI
+	b) SSH
+	c) Firewall
+
+**************** OS Configuration:
+- Name: Helix
+- Hostname: HelixOS
+- Username: helix
+- Password: 
+- Auto-Login (Disable/Enable Command)
+- Configure for GUI (Enable/Disable Command)
+- Users (names, pass):
+	a) root, NewTekk1
+	b) helix, Eicaeg7s2
+	c) asterisk, Gie3hiqu
+
+**************** Software to Install:
+
+- Asterick & FreePBX (Instructions in Install Details)
+- PyGoogleVoice
+
+**************** Tips & Tricks:
+
+- Start Linux Mint without GUI
+	a) Edit sudo gedit /etc/default/grub and modify line
+		GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+		to
+		GRUB_CMDLINE_LINUX_DEFAULT="quiet splash text"
+	b) Update command: sudo update-grub 
+	c) Restart
+	d) Start Linux Mint GUI manually with startx
+-

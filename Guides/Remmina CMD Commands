@@ -1,0 +1,27 @@
+Usage:                                
+  remmina [OPTION...] - The GTK+ Remote Desktop Client   
+
+Help Options:                                   
+  -h, --help           Show help options        
+
+Application Options:        
+  -a, --about          Show about dialog
+  -c, --connect=F      Connect to a .remmina file F
+  -e, --edit=F         Edit a .remmina file F
+  -n, --new            Create a new connection profile
+  -p, --pref           Show preference dialog
+  -x, --plugin=P       Execute plugin P
+  -q, --quit           Quit the application
+  -s, --server=S       Use default server name S
+  -t, --protocol=T     Use default protocol T
+  -i, --icon           Start as tray icon 
+
+
+
+Instructions:
+- remmina
+- Create a new desktop file
+- Save it and quit
+- Check $HOME/.remmina/filename.remmina
+- Execute with:
+      remmina -c $HOME/.remmina/filename.remmina

@@ -1,0 +1,26 @@
+Install OpenVPN & Setup SecurityKiss
+
+--Enable Interface Management
+	1) nano /etc/NetworkManager/NetworkManager.conf
+		Change "managed=false" to "managed=true"
+		save (Ctrl+X > Y > Enter)
+	2) sudo /etc/init.d/network-manager restart (or reboot)
+
+--Install & Setup OpenVPN
+	Install
+		1) apt-get install network-manager-openvpn network-manager network-manager-gnome network-manager-openvpn-gnome
+		2) Download VPN Files (SecurityKissVPN)
+		3) cp SecurityKissFolder/* /etc/openvpn/
+		4) ls /etc/openvpn/ -altr
+	Setup
+		1) Right click the Network Manager > Edit Connections > 
+			Add > OpenVPN
+		2) Name Connection [VPN, Location, Protocol, Port]
+		   Gatework IP (Found in SecurityKiss Readme File)
+		   Type: Certificates (TLS)
+		   Import Certs & Keys:
+		   	a) User Cert: client.crt
+		   	b) CA Cert: ca.crt
+		   	c) Private Key: client.key
+		3) Select Advanced > Check "Use LZO data compression" & 		"Use custom gateway port: port in name"
+		4) Accept and Save

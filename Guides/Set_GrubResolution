@@ -1,0 +1,24 @@
+How to set Grub resolution:
+
+1. sudo vi /etc/grub.d/00_header
+
+change - 
+
+	if loadfont `make_system_path_relative_to_its_root ${GRUB_FONT_PATH}` ; then
+  		set gfxmode=${GRUB_GFXMODE}
+  		insmod gfxterm
+to - 
+	if loadfont `make_system_path_relative_to_its_root ${GRUB_FONT_PATH}` ; then
+  		set gfxmode=${GRUB_GFXMODE}
+  		set gfxpayload=keep
+  		insmod gfxterm
+save and exit
+
+2. sudo vi /etc/default/grub
+
+uncomment -
+	
+	GRUB_GFXMODE=1920x1080x32 #Set resolution here
+save and exit
+
+update-grub #updates grub 

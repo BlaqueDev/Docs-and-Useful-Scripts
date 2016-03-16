@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# Name: Debian - First Boot Script
+# Description: Helps setup programs on Debian's first boot
+# Syntax: ./RunMe
+#
+################
+# Variables
+HOSTNAME="192.168.0.6"
+REMOTEUSER="asteroid"
+PASSWD="rawr"
+LOCALUSER="alpha"
+PASSPHRASE="rubberducky1"
+
+# Intro
+echo "Debian - First Boot Script"
+echo "1) Find SSH Servers"
+echo "2) Install SSH Client"
+echo "3)"
+echo "4)"
+echo "5)"
+echo 
+echo -n "Please select an option from the list: "
+read menuOption
+echo
+
+case "$menuOption" in
+	1)
+		apt-get -y -qq install nmap
+		echo "Servers currently running SSH:"
+		nmap -p 22 192.168.0.1-254 | grep -B 4 "open" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+	;;
+	2) 
+		./scripts/Install_SSH_Client $REMOTEUSER $HOSTNAME $PASSWD $PASSPHRASE $LOCALUSER 1>>/home/alpha/Servers/Trion - Server/logs/Install_SSH_Client.log 2>>/home/alpha/Servers/Trion - Server/logs/Install_SSH_Client.log
+	;;
+	3)
+
+	;;
+	*)
+    	echo "Usage: /etc/init.d/vncserver {start|stop|restart} or"
+		echo " sudo service vncserver {start|stop|restart}"
+    	exit 1
+    ;;
+esac
+
+# Connect to server as root and copy this script
+#	if [$1 == "send"]
+#	ssh $1 -l root
+#	scp Debian_FirstBoot $1:/tmp/Trion/Debian_FirstBoot
+#	apt-get update && apt-get -y upgrade
+
+# Install and Configure Sudo
+	#apt-get -y install sudo

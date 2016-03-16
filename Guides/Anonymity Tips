@@ -1,0 +1,53 @@
+--Browsers (Enable Incognito Mode)
+	1) Tor: https://www.torproject.org/
+	2) FireFox with Extensions: https://www.mozilla.org/en-US/
+		Extensions
+			a)
+
+--Alias Creators
+	1) FakeNameGenerator: https://www.fakenamegenerator.com/
+
+--Proxy & VPN's
+	1) TorGuard: https://torguard.net/
+	2) Hamachi and Privoxy (Personal PC Tunnel):
+	3) CyberGhost VPN: https://www.cyberghostvpn.com
+	4) HideMyAss: https://www.hidemyass.com/
+
+--Email
+	Disposable
+		1) GuerrillaMail: https://www.guerrillamail.com/
+			Description: Email expires after 60 mins
+		2) MeltMail: https://meltmail.com/
+			Description: Email expires after 3,6,12,24 hours
+		3) Mailinator: https://mailinator.com/
+			Description: Industry Leader *Recommended*
+		4) HideMyAssEmail: https://securemail.hidemyass.com/
+			Description: Can recieve ONLY, Auto-Delete option
+	Anonymous
+		1) TorGuardEmail: https://torguard.net/anonymous-email.php
+			Description: 10MB Storage, SSL, PGP Encryption
+		2) Mail2Tor: http://mail2tor.com/
+			Description: Tor Access Only
+	Email Client
+		1) Thunderbird: 
+			Extensions
+				a) Enigmail: https://www.enigmail.net/home/index.php
+					Description: Encription Plugin
+				b) TorBirdy: https://addons.mozilla.org/en-us/thunderbird/addon/torbirdy/
+					Description: Routes messages through Tor
+
+--Instant Message
+	1) Adium (MacOS): https://adium.im/
+	2) Pidgen: https://www.pidgin.im/
+		Extension Page: https://developer.pidgin.im/wiki/ThirdPartyPlugins 
+
+--File Transfers
+	1) OnionShare: https://onionshare.org/
+		Description: Anonymously share a file of any size
+
+--Mobile (Android)
+	1) Orbot: https://guardianproject.info/apps/orbot/
+
+--Tor based OS
+	1) Tails: https://tails.boum.org/
+	2) Whonix: https://www.whonix.org/

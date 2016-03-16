@@ -1,0 +1,3 @@
+Installs htop - CLI Task manager
+
+sudo apt-get install htop

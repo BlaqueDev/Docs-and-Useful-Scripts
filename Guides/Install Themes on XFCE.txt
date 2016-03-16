@@ -1,0 +1,68 @@
+XFCE Theme Install Guide
+
+--Extract Theme to respectable Folders
+	1) Window Decoration: ~/.local/share/themes/<theme name>/xfwm4
+	2) GTK+: ~/.local/share/themes/<theme name>/gtk-2.0/gtkrc
+	3) Cursors: ~/.icons/<theme name>/cursors
+	4) Icons: ~/.icons/<theme name>/
+	
+--Create an icon cache: run gtk-update-icon-cache -f -t ~/.icons/<theme_name>
+
+--Select Theme
+	1) Window Decoration > Window Mnager Settings
+	2) GTK+ > User Interface Settings
+	3) Cursors > Mouse Settings
+	4) Icons > User Interface Settings
+	5) (Optional) If theme contains scalable icons install
+			sudo apt-get install librsvg
+
+--XFCE Theme Manager: http://xfce-look.org/content/show.php/Xfce-Theme-Manager?content=149647
+	1) apt-get install build-essential glib-2.0-dev libgtk2.0-dev libxfce4ui-1-dev automake
+	2) Download from link and extract
+	3) cd to extracted folder
+	4) ./autogen.sh (or ./configure) > make > sudo make install (or sudo make install PREFIX=/usr **Sets install dir**)
+	5) xfce4-panel --restart
+Themes
+
+--Numix
+	1) sudo add-apt-repository ppa:numix/ppa
+		nano /etc/apt/sources.list
+			#Numix
+			deb http://ppa.launchpad.net/numix/ppa/ub... trusty main 
+			deb-src http://ppa.launchpad.net/numix/ppa/ub... trusty main
+	2) sudo apt-get update
+	3) sudo apt-get install numix-gtk-theme numix-icon-theme-circle
+	
+--Mediterranean
+	1) sudo add-apt-repository ppa:noobslab/themes
+	2) sudo apt-get update
+	3) sudo apt-get install mediterranean-theme
+	
+	
+
+	
+****** XFCE Theme Manager Syntax ******
+
+Usage: xfce-theme-manager [option.1] ... [option.N]
+
+OPTION			Usage
+-v, --version		Print version info and quit
+-u, --update-db		Update the database
+-r, --build-db		Re-build the database
+-n, --nogui		Don't run the GUI
+-t, --theme=ARG		Set the meta-theme to ARG
+-c, --controls=ARG	Set the controls theme to ARG
+-w, --wmborder=ARG	Set the window border to ARG
+-i, --icons=ARG		Set the icon theme to ARG
+-p, --cursors=ARG	Set the cursor theme to ARG
+-b, --backdrop=ARG	Set wallpaper to ARG
+-l, --list=ARG		List DB entry's, where ARG = any of "*Ctwcib"
+			Where 'C' prints custom themes, 't' prints themes,
+			'w' prints window borders, 'c' prints controls,
+			'i' prints icons and 'b' prints backdrops.
+			If the first/only character is a '*' then all entry's are printed.
+-?, --help=ARG		This help
+
+***************************************how 
+
+

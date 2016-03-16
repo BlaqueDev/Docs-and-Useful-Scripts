@@ -1,0 +1,60 @@
+#!/bin/bash
+#
+# Name: Open-SSH Server
+# Description: Installs and Configures Open-SSH Server 
+# Syntax: sudo service ssh (start|stop|restart|status)
+#
+################
+# Intro
+echo "Automated install Script for Open-SSH Server"
+echo "   *Checking for system updates..."
+apt-get update
+apt-get -y upgrade
+echo
+echo "	 *Complete!"
+read -n 1 -p "**Press any key to continue**"
+clear
+
+# Installing Open-SSH Server
+echo "   *Installing Open-SSH Server..."
+apt-get install openssh-server
+echo
+echo "	 *Complete!"
+read -n 1 -p "**Press any key to continue**"
+clear
+
+# Backup and Modify Open-SSH Server Config 
+echo "   *Backing up Open-SSH Server Config..."
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.default
+chmod a-w /etc/ssh/sshd_config.default
+echo "Replace: "
+echo "	1) #PasswordAuthentication yes >> PasswordAuthentication no"
+echo "	2) #PermitRootLogin yes >> PermitRootLogin no"
+echo "	3) UsePAM yes >> UsePAM no"
+echo "	4) LogLevel INFO >> LogLevel VERBOSE"
+echo "	5) *Optional* #Banner /etc/issue.net >> Banner /etc/issue.net' *Before Auth*"
+echo "	6) *Optional* #Banner /etc/motd >> Banner /etc/motd *After Auth*"
+echo "Add: "
+echo "	1) AllowUsers username"
+nano /etc/ssh/sshd_config
+echo
+echo "	 *Complete!"
+read -n 1 -p "**Press any key to continue**"
+clear
+
+# Restart Open-SSH Server
+echo "   *Restarting Open-SSH Server Service..."
+systemctl restart ssh
+
+# Test if Open-SSH daemon is running
+echo "   *Testing if Open-SSH daemon is running..."
+ps -A | grep sshd
+echo
+echo "	 *Complete!"
+read -n 1 -p "**Press any key to continue**"
+clear
+
+# Exit
+echo "Open-SSH Server should now be installed!"
+read -n 1 -p "**Press any key to end the script**"
+exit 1

@@ -1,0 +1,19 @@
+Install & Setup Sudo: (MUST BE ROOT)
+
+--Install
+	apt-get update
+	apt-get install sudo
+
+--Create User
+	adduser username
+
+--Edit Sudo Config
+	visudo
+	Search for:
+		# User privilege specification
+		ROOT ALL=(ALL:ALL) ALL
+		username ALL=(ALL:ALL) ALL *Add below*
+	Save and Close
+
+--Delete User
+	deluser --remove-home username

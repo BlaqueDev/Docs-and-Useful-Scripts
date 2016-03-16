@@ -1,0 +1,24 @@
+Extra Packages to Install:
+
+**Batch Install
+	sudo apt-get install synaptic gdebi gksu menu
+	sudo reboot
+	
+	
+--Synaptic Package Manager: apt-get install synaptic
+	Description: Adds, Removes, and edits packages
+--Gdebi: apt-get install gdebi
+	Description: Allows installs through. deb files
+--Gksu: apt-get install gksu
+	Description:
+--Menu: apt-get install menu
+	Description:
+--WICD: aptitude install wicd
+	Description: Lightweight Network Manager
+--Lshw: apt-get install lshw
+	Description: Provides detailed info on the hardware configuration
+--Add Apt Repository: sudo apt-get install software-properties-common
+	Description: Adds repositories
+--Tor: sudo apt-get install tor
+	Description: Anonymous Web Browser
+--
