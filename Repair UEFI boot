@@ -1,1 +1,0 @@
-sudo efibootmgr -c -d /dev/sda -p 2 -l "\EFI\ubuntu\shimx64.efi" -L "LinuxMint"
